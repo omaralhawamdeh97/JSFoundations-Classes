@@ -75,8 +75,8 @@ class Person {
     this.wallet = new Wallet(0);
   }
 
-  moveTo = (hakem) => {
-    this.location = hakem;
+  moveTo = (point) => {
+    this.location = point;
   };
 }
 
@@ -107,7 +107,7 @@ class Vendor extends Person {
 
   sellTo = (customer, numberOfIceCreams) => {
     this.moveTo(customer.location);
-    const total = numberOfIceCreams * this.price;
+    let total = numberOfIceCreams * this.price;
     customer.wallet.debit(total);
     this.wallet.credit(total);
   };
@@ -129,9 +129,9 @@ class Vendor extends Person {
  * new customer = new Customer(name, x, y);
  **********************************************************/
 class Customer extends Person {
-  constructor(name, x, y) {
+  constructor(name, x, y, money = 10) {
     super(name, x, y);
-    this.wallet = new Wallet(10);
+    this.wallet = new Wallet(money);
   }
 
   _isInRange = (vendor) =>
@@ -148,7 +148,7 @@ class Customer extends Person {
       vendor.sellTo(this, numberOfIceCreams);
   };
 }
-// export { Point, Wallet, Person, Customer, Vendor };
+export { Point, Wallet, Person, Customer, Vendor };
 
 /***********************************************************
  * If you want examples of how to use the
